@@ -392,7 +392,16 @@ if (typeof Object.create !== "function") {
         buildControls : function () {
             var base = this;
             if (base.options.navigation === true || base.options.pagination === true) {
-                base.owlControls = $("<div class=\"owl-controls\"/>").toggleClass("clickable", !base.browser.isTouch).appendTo(base.$elem);
+
+                var paginationHolder = base.options.paginationHolder;
+
+                if( paginationHolder !== false && $(paginationHolder).length != 0 ){
+                    base.owlControls = $("<div class=\"owl-controls\"/>").toggleClass("clickable", !base.browser.isTouch).appendTo( $(paginationHolder) );
+
+                } else {
+                    base.owlControls = $("<div class=\"owl-controls\"/>").toggleClass("clickable", !base.browser.isTouch).appendTo(base.$elem);
+                }
+
             }
             if (base.options.pagination === true) {
                 base.buildPagination();
@@ -1475,6 +1484,8 @@ if (typeof Object.create !== "function") {
 
         pagination : true,
         paginationNumbers : false,
+        paginationHolder : false,
+
 
         responsive : true,
         responsiveRefreshRate : 200,
